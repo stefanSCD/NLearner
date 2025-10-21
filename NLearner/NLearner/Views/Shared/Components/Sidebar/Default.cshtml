@@ -1,0 +1,58 @@
+﻿@model NLearner.ViewModels.SidebarViewModel
+
+<nav class="sidebar">
+    <div class="sb-header">
+        <div class="sb-app">NLearner</div>
+        <div class="sb-user">@Model.UserDisplayName</div>
+    </div>
+
+    <div class="sb-section">
+        <div class="sb-section-row">
+            <div class="sb-section-title">Projects</div>
+            <a class="sb-action" asp-controller="Project" asp-action="Create">New</a>
+        </div>
+
+        @if (Model.Projects.Count == 0)
+        {
+            <div class="sb-empty">No projects yet.</div>
+        }
+        else
+        {
+            <ul class="sb-list">
+                @foreach (var p in Model.Projects)
+                {
+                    var current = (Model.SelectedProjectId != null && Model.SelectedProjectId == p.Id) ? " current" : "";
+                    <li class="sb-item@current">
+                        <a asp-controller="Project" asp-action="Details" asp-route-id="@p.Id">
+                            <span>@p.Name</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+        <div class="sb-footer">
+            <a asp-controller="Project" asp-action="Index">All projects (@Model.TotalProjects)</a>
+        </div>
+
+        <div class="sb-section-title">Decks</div>
+        @if (!Model.Decks.Any())
+        {
+            <div class="sb-empty">No decks yet.</div>
+        }
+        else
+        {
+            <ul class="sb-list">
+                @foreach (var deck in Model.Decks)
+                {
+                    <li class="sb-item">
+                        <a asp-controller="Deck" asp-action="Deck"
+                           asp-route-projectId="@deck.ProjectId"
+                           asp-route-id="@deck.Id">
+                            @deck.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</nav>

@@ -1,0 +1,87 @@
+﻿@model NLearner.ViewModels.ProjectDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.ProjectName;
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>@Model.ProjectName</h1>
+        @* This button will eventually link to a "New Note for this Project" page *@
+        <form asp-controller="Note" asp-action="New" asp-route-projectId="@Model.ProjectId" >
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-primary">+ New Note</button>
+        </form>
+    </div>
+
+    <hr />
+
+    @if (!Model.Notes.Any())
+    {
+        <div class="text-center p-5 border rounded">
+            <h4>This project has no notes yet.</h4>
+            <form asp-controller="Note" asp-action="New" asp-route-projectId="@Model.ProjectId" method="post" class="mt-2">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-success">Create the first one!</button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <h4 class="mb-3">Notes</h4>
+        <ul class="list-group">
+            @foreach (var note in Model.Notes)
+            {
+                <li class="list-group-item">
+                    <a asp-controller="Note" asp-action="Edit" asp-route-id="@note.Id" asp-route-projectId="@Model.ProjectId" class="text-decoration-none">
+                        @* Use a placeholder if the note has no title *@
+                        @(string.IsNullOrWhiteSpace(note.Title) ? "(Untitled Note)" : note.Title)
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+    <hr />
+
+    <div class="mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="mb-0">Card Decks</h4>
+            <a asp-controller="Deck" asp-action="New" asp-route-projectId="@Model.ProjectId" class="btn btn-primary btn-sm">
+                + New Deck
+            </a>
+        </div>
+
+        @if (!Model.Decks.Any())
+        {
+            <div class="text-center p-4 border rounded bg-light">
+                <p class="mb-0">This project has no card decks yet.</p>
+            </div>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var deck in Model.Decks)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a asp-controller="Deck" asp-action="Deck"
+                           asp-route-projectId="@Model.ProjectId"
+                           asp-route-id="@deck.Id"
+                           class="text-decoration-none h5 mb-0">
+                            @deck.Name
+                        </a>
+
+                        <form asp-controller="Deck" asp-action="Delete"
+                              asp-route-projectId="@Model.ProjectId"
+                              asp-route-id="@deck.Id"
+                              method="post" onsubmit="return confirm('Are you sure you want to delete this deck?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+
+    <hr />
+</div>

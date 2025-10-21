@@ -1,0 +1,40 @@
+﻿@* Modelul este DTO-ul, nu entitatea, pentru a primi datele din formular *@
+@model NLearner.DTO.Projects.CreateProjectDto
+
+@{
+    ViewData["Title"] = "Create a New Project";
+}
+
+<div class="container mt-4">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-controller="Project" asp-action="Create" method="post">
+                @* Token-ul anti-forgery este esențial pentru securitatea formularelor POST *@
+                @Html.AntiForgeryToken()
+
+                @* Afișează erori generale care nu sunt legate de un câmp anume *@
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    @* Aici va apărea mesajul de eroare dacă numele este invalid *@
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create Project</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* Secțiune pentru a adăuga scripturile de validare client-side *@
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

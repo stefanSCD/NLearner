@@ -1,0 +1,44 @@
+﻿@* Modelul este o listă de entități Note *@
+@model IEnumerable<NLearner.Domain.Entities.Note>
+
+@{
+    // Folosim numele proiectului din ViewData, setat în controller
+    ViewData["Title"] = $"Notes for {ViewData["ProjectName"]}";
+    // Extragem projectId din ruta URL pentru a-l folosi în link-uri
+    var projectId = ViewContext.RouteData.Values["projectId"];
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>@ViewData["Title"]</h1>
+        @* Butonul "New Note" trebuie să știe în ce proiect să creeze notița *@
+        <form asp-controller="Note" asp-action="New" asp-route-projectId="@projectId" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-primary">+ New Note</button>
+        </form>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center p-5 border rounded">
+            <h4>This project has no notes yet.</h4>
+            <p>Get started by creating your first one!</p>
+        </div>
+    }
+    else
+    {
+        <div class="list-group">
+            @foreach (var note in Model)
+            {
+                <a asp-controller="Note" asp-action="Edit" asp-route-projectId="@projectId" asp-route-id="@note.Id" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            @(string.IsNullOrWhiteSpace(note.Title) ? "(Untitled Note)" : note.Title)
+                        </h5>
+                        <small>@note.UpdatedDate.ToString("MMM dd, yyyy")</small>
+                    </div>
+                </a>
+            }
+        </div>
+    }
+</div>

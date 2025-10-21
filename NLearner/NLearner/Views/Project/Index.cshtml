@@ -1,0 +1,49 @@
+﻿@model IEnumerable<NLearner.Domain.Entities.Project>
+
+@{
+    ViewData["Title"] = "My Projects";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>@ViewData["Title"]</h1>
+        <a asp-controller="Project" asp-action="Create" class="btn btn-primary">
+            New Project
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center p-5 border rounded">
+            <h4>You don't have any projects yet.</h4>
+            <p>Get started by creating your first one!</p>
+            <a asp-controller="Project" asp-action="Create" class="btn btn-success mt-2">Create a Project</a>
+        </div>
+    }
+    else
+    {
+        <ul class="list-group">
+            @foreach (var project in Model)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        @* Link către pagina de detalii a proiectului *@
+                        <a asp-controller="Project" asp-action="Details" asp-route-id="@project.Id" class="h5 text-decoration-none">
+                            @project.Name
+                        </a>
+                        <small class="d-block text-muted">
+                            Last updated: @project.UpdatedDate.ToString("yyyy-MM-dd")
+                        </small>
+                    </div>
+                    <div>
+                        @* Butonul de ștergere este un formular pentru securitate *@
+                        <form asp-controller="Project" asp-action="Delete" asp-route-id="@project.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this project?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+</div>

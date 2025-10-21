@@ -1,0 +1,98 @@
+﻿.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    width: 280px;
+    padding: 12px;
+    border-right: 1px solid #2a2a2a;
+    overflow: auto;
+}
+
+.sb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.sb-app {
+    opacity: 0.9;
+}
+
+.sb-user {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.sb-section {
+    margin: 14px 0;
+}
+
+.sb-section-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    opacity: .7;
+    margin-bottom: 6px;
+}
+
+.sb-section-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sb-action {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    text-decoration: none;
+}
+
+.sb-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .sb-list li {
+        margin: 4px 0;
+    }
+
+.sb-notes .sb-note-item a {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+    .sb-notes .sb-note-item a:hover {
+        background: rgba(255,255,255,0.06);
+    }
+
+.sb-note-item.current a {
+    background: rgba(255,255,255,0.12);
+}
+
+.sb-note-title {
+    font-size: 0.95rem;
+}
+
+.sb-note-date {
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+.sb-empty {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    padding: 10px 6px;
+    border: 1px dashed rgba(255,255,255,0.2);
+    border-radius: 8px;
+}
+
+.sb-footer {
+    margin-top: 8px;
+}

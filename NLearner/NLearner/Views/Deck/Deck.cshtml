@@ -1,0 +1,84 @@
+﻿@model NLearner.Domain.Entities.Deck
+
+@{
+    ViewData["Title"] = Model.Name;
+    var projectId = ViewContext.RouteData.Values["projectId"];
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>@Model.Name</h1>
+        <a asp-controller="Project" asp-action="Details" asp-route-id="@Model.ProjectId" class="btn btn-outline-secondary">
+            Back to Project
+        </a>
+    </div>
+
+    <div class="card bg-light mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Add a New Card</h5>
+            <form asp-controller="Card" asp-action="New"
+                  asp-route-projectId="@projectId"
+                  asp-route-deckId="@Model.Id"
+                  method="post" class="row g-3">
+
+                @Html.AntiForgeryToken()
+
+                <div class="col-md-6">
+                    <label for="front" class="form-label">Front (Question)</label>
+                    <input type="text" name="Front" id="front" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label for="back" class="form-label">Back (Answer)</label>
+                    <input type="text" name="Back" id="back" class="form-control" />
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Add Card</button>
+                </div>
+            </form>
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger mt-3">@TempData["ErrorMessage"]</div>
+            }
+        </div>
+    </div>
+
+    <h4 class="mb-3">Cards in this Deck (@Model.Cards.Count)</h4>
+
+    @if (!Model.Cards.Any())
+    {
+        <div class="text-center p-4 border rounded">
+            <p>This deck has no cards yet. Use the form above to add your first one!</p>
+        </div>
+    }
+    else
+    {
+        <ul class="list-group">
+            @foreach (var card in Model.Cards.OrderByDescending(c => c.CreatedDate))
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="w-75">
+                        <strong class="d-block">@card.Front</strong>
+                        <span class="text-muted">@card.Back</span>
+                    </div>
+                    <div class="d-flex">
+                        <a asp-controller="Card" asp-action="Edit"
+                           asp-route-projectId="@projectId"
+                           asp-route-deckId="@Model.Id"
+                           asp-route-id="@card.Id"
+                           class="btn btn-sm btn-outline-secondary me-2">Edit</a>
+
+                        <form asp-controller="Card" asp-action="Delete"
+                              asp-route-projectId="@projectId"
+                              asp-route-deckId="@Model.Id"
+                              asp-route-id="@card.Id"
+                              method="post" onsubmit="return confirm('Are you sure you want to delete this card?');">
+
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+</div>

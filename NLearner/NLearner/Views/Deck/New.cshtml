@@ -1,0 +1,39 @@
+﻿@model NLearner.DTO.Decks.CreateDeckDto
+
+@{
+    ViewData["Title"] = "New Deck";
+    // Trebuie să preluăm projectId din ViewData sau Model pentru a-l trimite înapoi
+}
+
+<div class="container mt-4">
+    <h1>Create a New Deck</h1>
+    <p>A deck is a collection of flashcards (e.g., "Chapter 1 Vocabulary").</p>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-controller="Deck" asp-action="New" method="post">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="ProjectId" />
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Deck Name</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create Deck</button>
+                <a asp-controller="Project" asp-action="Details" asp-route-id="@Model.ProjectId" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

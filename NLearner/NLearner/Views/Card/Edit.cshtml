@@ -1,0 +1,52 @@
+﻿@model NLearner.DTO.Cards.UpdateCardDto
+
+@{
+    ViewData["Title"] = "Edit Card";
+    var projectId = ViewData["ProjectId"];
+}
+
+<div class="container mt-4">
+    <h1>Edit Card</h1>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-controller="Card" asp-action="Edit"
+                  asp-route-projectId="@projectId"
+                  asp-route-deckId="@Model.DeckId"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="DeckId" />
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Front" class="form-label">Front (Question)</label>
+                    <textarea asp-for="Front" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Front" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Back" class="form-label">Back (Answer)</label>
+                    <textarea asp-for="Back" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Back" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a asp-controller="Deck" asp-action="Deck"
+                   asp-route-projectId="@projectId"
+                   asp-route-id="@Model.DeckId"
+                   class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
