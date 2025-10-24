@@ -475,3 +475,17 @@ C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\obj\Debug\net9.0
 C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\obj\Debug\net9.0\NLearner.genruntimeconfig.cache
 C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\obj\Debug\net9.0\ref\NLearner.dll
 C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\obj\Debug\net9.0\compressed\84lgcytps2-w3ar8jhwyz.gz
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\bin\Debug\net9.0\System.Web.Mvc.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\bin\Debug\net9.0\System.Web.Razor.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\bin\Debug\net9.0\System.Web.Helpers.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\bin\Debug\net9.0\System.Web.WebPages.Deployment.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\bin\Debug\net9.0\System.Web.WebPages.Razor.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\bin\Debug\net9.0\System.Web.WebPages.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\bin\Debug\net9.0\Microsoft.Web.Infrastructure.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\bin\Debug\net9.0\NLearner.Application.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\bin\Debug\net9.0\NLearner.Domain.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\bin\Debug\net9.0\NLearner.Infrastructure.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\bin\Debug\net9.0\NLearner.Application.pdb
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\bin\Debug\net9.0\NLearner.Infrastructure.pdb
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\bin\Debug\net9.0\NLearner.Domain.pdb
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner\obj\Debug\net9.0\NLearner.MvcApplicationPartsAssemblyInfo.cs

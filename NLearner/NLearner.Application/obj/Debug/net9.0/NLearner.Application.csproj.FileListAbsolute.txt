@@ -1,0 +1,16 @@
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\obj\Debug\net9.0\NLearner.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\obj\Debug\net9.0\NLearner.Application.AssemblyInfoInputs.cache
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\obj\Debug\net9.0\NLearner.Application.AssemblyInfo.cs
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\obj\Debug\net9.0\NLearner.Application.csproj.CoreCompileInputs.cache
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\obj\Debug\net9.0\NLearner.Application.sourcelink.json
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\obj\Debug\net9.0\NLearner.Application.csproj.AssemblyReference.cache
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\bin\Debug\net9.0\NLearner.Application.deps.json
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\bin\Debug\net9.0\NLearner.Application.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\bin\Debug\net9.0\NLearner.Application.pdb
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\bin\Debug\net9.0\NLearner.Domain.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\bin\Debug\net9.0\NLearner.Domain.pdb
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\obj\Debug\net9.0\NLearner.886BDEBF.Up2Date
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\obj\Debug\net9.0\NLearner.Application.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\obj\Debug\net9.0\refint\NLearner.Application.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\obj\Debug\net9.0\NLearner.Application.pdb
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Application\obj\Debug\net9.0\ref\NLearner.Application.dll

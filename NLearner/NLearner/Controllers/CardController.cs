@@ -39,16 +39,10 @@ namespace NLearner.Controllers
         [HttpGet("{id:guid}/edit")]
         public async Task<IActionResult> Edit(Guid projectId, Guid deckId, Guid id)
         {
-            var card = await _deckService.GetCardAsync(id, CurrentUserId);
-            if (card is null || deckId != card.DeckId)
+            var model = await _deckService.GetCardForUpdateAsync(id, CurrentUserId);
+            if (model is null || deckId != model.DeckId)
                 return NotFound();
-            var model = new UpdateCardDto()
-            {
-                Id = card.Id,
-                Front = card.Front,
-                Back = card.Back,
-                DeckId = deckId
-            };
+            
             ViewData["ProjectId"] = projectId;
             return View(model);
         }

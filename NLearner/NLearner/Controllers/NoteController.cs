@@ -40,19 +40,11 @@ namespace NLearner.Controllers
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Edit(Guid projectId, Guid id)
         {
-            var note = await _noteService.GetOwnedAsync(id, CurrentUserId);
-            if (note is null || note.ProjectId != projectId)
-                return NotFound();
-            var vm = new NoteEditViewModel
+            var vm = await _noteService.GetOwnedNoteViewModelAsync(projectId, CurrentUserId);
+            if (vm is null || vm.ProjectId != projectId)
             {
-                Id = note.Id,
-                Title = note.Title ?? string.Empty,
-                Content = note.Content ?? string.Empty,
-                CreatedDate = note.CreatedDate,
-                UpdatedDate = note.UpdatedDate,
-                IsDeleted = note.isDeleted,
-                ProjectId = projectId
-            };
+                return NotFound();
+            }
             return View(vm);
         }
         [HttpPost("save")]

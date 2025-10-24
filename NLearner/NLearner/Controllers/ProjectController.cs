@@ -50,17 +50,10 @@ namespace NLearner.Controllers
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
-            var project = await _projectService.GetProjectDetailsAsync(id, CurrentUserId);
-            if(project == null)
+            var vm = await _projectService.GetProjectDetailsViewModelAsync(id, CurrentUserId);
+            if(vm == null)
                 return NotFound();
-            var viewModel = new ProjectDetailsViewModel
-            {
-                ProjectId = id,
-                ProjectName = project.Name,
-                Notes = project.Notes.OrderByDescending(n => n.UpdatedDate),
-                Decks = project.Decks.OrderByDescending(d => d.UpdatedDate)
-            };
-            return View(viewModel);
+            return View(vm);
         }
     }
 }

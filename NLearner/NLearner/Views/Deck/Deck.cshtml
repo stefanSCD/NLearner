@@ -1,16 +1,27 @@
-﻿@model NLearner.Domain.Entities.Deck
+﻿@model NLearner.ViewModels.StudyDeckViewModel
 
 @{
-    ViewData["Title"] = Model.Name;
+    ViewData["Title"] = Model.DeckName;
     var projectId = ViewContext.RouteData.Values["projectId"];
 }
 
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1>@Model.Name</h1>
-        <a asp-controller="Project" asp-action="Details" asp-route-id="@Model.ProjectId" class="btn btn-outline-secondary">
-            Back to Project
-        </a>
+        <h1>@Model.DeckName</h1>
+        <div>
+            <a asp-controller="Deck" asp-action="Study"
+               asp-route-projectId="@projectId"
+               asp-route-id="@Model.DeckId"
+               class="btn btn-success btn-lg me-2">
+                ▶️ Study this Deck
+            </a>
+
+            <a asp-controller="Project" asp-action="Details"
+               asp-route-id="@Model.ProjectId"
+               class="btn btn-outline-secondary">
+                Back to Project
+            </a>
+        </div>
     </div>
 
     <div class="card bg-light mb-4">
@@ -18,7 +29,7 @@
             <h5 class="card-title">Add a New Card</h5>
             <form asp-controller="Card" asp-action="New"
                   asp-route-projectId="@projectId"
-                  asp-route-deckId="@Model.Id"
+                  asp-route-deckId="@Model.DeckId"
                   method="post" class="row g-3">
 
                 @Html.AntiForgeryToken()
@@ -63,13 +74,13 @@
                     <div class="d-flex">
                         <a asp-controller="Card" asp-action="Edit"
                            asp-route-projectId="@projectId"
-                           asp-route-deckId="@Model.Id"
+                           asp-route-deckId="@Model.DeckId"
                            asp-route-id="@card.Id"
                            class="btn btn-sm btn-outline-secondary me-2">Edit</a>
 
                         <form asp-controller="Card" asp-action="Delete"
                               asp-route-projectId="@projectId"
-                              asp-route-deckId="@Model.Id"
+                              asp-route-deckId="@Model.DeckId"
                               asp-route-id="@card.Id"
                               method="post" onsubmit="return confirm('Are you sure you want to delete this card?');">
 

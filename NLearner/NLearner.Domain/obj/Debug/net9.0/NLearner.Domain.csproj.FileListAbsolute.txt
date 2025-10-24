@@ -1,0 +1,13 @@
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Domain\obj\Debug\net9.0\NLearner.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Domain\obj\Debug\net9.0\NLearner.Domain.AssemblyInfoInputs.cache
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Domain\obj\Debug\net9.0\NLearner.Domain.AssemblyInfo.cs
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Domain\obj\Debug\net9.0\NLearner.Domain.csproj.CoreCompileInputs.cache
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Domain\obj\Debug\net9.0\NLearner.Domain.sourcelink.json
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Domain\bin\Debug\net9.0\NLearner.Domain.deps.json
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Domain\bin\Debug\net9.0\NLearner.Domain.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Domain\bin\Debug\net9.0\NLearner.Domain.pdb
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Domain\obj\Debug\net9.0\NLearner.Domain.csproj.AssemblyReference.cache
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Domain\obj\Debug\net9.0\NLearner.Domain.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Domain\obj\Debug\net9.0\refint\NLearner.Domain.dll
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Domain\obj\Debug\net9.0\NLearner.Domain.pdb
+C:\Users\x\Desktop\oop\basic-login-aspnetcore\NLearner\NLearner.Domain\obj\Debug\net9.0\ref\NLearner.Domain.dll

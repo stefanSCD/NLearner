@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using NLearner.DTO.Decks;
 using NLearner.Infrastructure.Service;
+using NLearner.ViewModels;
+using System.Runtime.InteropServices;
 
 namespace NLearner.Controllers
 {
@@ -24,7 +26,7 @@ namespace NLearner.Controllers
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Deck(Guid projectId, Guid id) 
         {
-            var deck = await _deckService.GetDeckWithCardsAsync(id, CurrentUserId);
+            var deck = await _deckService.GetDeckWithCardsViewModelAsync(id, CurrentUserId);
 
             if (deck is null || deck.ProjectId != projectId) {
                 return NotFound();
@@ -61,6 +63,14 @@ namespace NLearner.Controllers
             }
             TempData["SuccessMessage"] = "Deck deleted successfully.";
             return RedirectToAction("Details", "Project", new { id = projectId });
+        }
+        [HttpGet("{id:guid}/study")]
+        public async Task<IActionResult> Study(Guid projectId, Guid id)
+        {
+            var vm = await _deckService.GetDeckWithCardsViewModelAsync(id, CurrentUserId);
+            if(vm is null || vm.ProjectId != projectId)
+                return NotFound();
+            return View("Study", vm);
         }
     }
 }

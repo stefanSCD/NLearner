@@ -3,7 +3,6 @@
 <nav class="sidebar">
     <div class="sb-header">
         <div class="sb-app">NLearner</div>
-        <div class="sb-user">@Model.UserDisplayName</div>
     </div>
 
     <div class="sb-section">
@@ -21,7 +20,6 @@
             <ul class="sb-list">
                 @foreach (var p in Model.Projects)
                 {
-                    var current = (Model.SelectedProjectId != null && Model.SelectedProjectId == p.Id) ? " current" : "";
                     <li class="sb-item@current">
                         <a asp-controller="Project" asp-action="Details" asp-route-id="@p.Id">
                             <span>@p.Name</span>
