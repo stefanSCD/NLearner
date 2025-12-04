@@ -1,0 +1,202 @@
+﻿@model NLearner.ViewModels.StudyDeckViewModel
+@using System.Text.Json
+@using NLearner.Domain.Domain.Enums
+
+@{
+    ViewData["Title"] = $"Studiu: {Model.DeckName}";
+
+    // Serializăm cardurile, incluzând ID-ul, care este esențial
+    // pentru a trimite înapoi la server ce card a fost revizuit.
+    var cardsAsJson = JsonSerializer
+        .Serialize(Model.Cards.Select(c => new { c.Id, c.Front, c.Back }));
+}
+
+<form id="anti-forgery-form" style="display: none;">
+    @Html.AntiForgeryToken()
+</form>
+
+<style>
+    .flashcard-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2rem;
+    }
+
+    .flashcard {
+        width: 600px;
+        min-height: 300px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 1.5rem;
+        position: relative;
+    }
+
+    #card-back {
+        display: none;
+        color: #0056b3;
+        font-weight: bold;
+    }
+
+    .card-controls {
+        margin-top: 20px;
+    }
+
+    /* Butoanele de feedback sunt ascunse inițial */
+    #feedback-controls {
+        display: none;
+    }
+</style>
+
+<div class="flashcard-container">
+
+    <div class="d-flex justify-content-between w-100 mb-3" style="max-width: 600px;">
+        <h3>@Model.DeckName</h3>
+        <a asp-controller="Deck" asp-action="Deck"
+           asp-route-projectId="@Model.ProjectId"
+           asp-route-id="@Model.DeckId"
+           class="btn btn-outline-secondary">Back to Deck</a>
+    </div>
+
+    <div class="flashcard shadow-sm">
+        <div id="card-front">Întrebare...</div>
+        <div id="card-back">Răspuns...</div>
+    </div>
+
+    <div id="card-progress" class="text-muted mt-2"></div>
+
+    <div class="card-controls">
+        <button id="show-answer-btn" class="btn btn-primary btn-lg mx-3">Show Answer</button>
+
+        <div id="feedback-controls">
+            <button class="btn btn-danger" data-quality="@((int)ReviewQuality.Again)">Again (Greu)</button>
+            <button class="btn btn-warning mx-2" data-quality="@((int)ReviewQuality.Good)">Good (OK)</button>
+            <button class="btn btn-success" data-quality="@((int)ReviewQuality.Easy)">Easy (Ușor)</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // --- 1. SETUP ---
+            const cards = @Html.Raw(cardsAsJson);
+            let currentIndex = 0;
+
+            // Preluăm datele de rutare și token-ul
+            const projectId = "@Model.ProjectId";
+            const deckId = "@Model.DeckId";
+            const tokenInput = document.querySelector("#anti-forgery-form input[name='__RequestVerificationToken']");
+
+            if (!tokenInput) {
+                console.error("Anti-Forgery Token not found!");
+                return;
+            }
+            const token = tokenInput.value;
+
+            // Selectăm elementele DOM
+            const cardFront = document.getElementById("card-front");
+            const cardBack = document.getElementById("card-back");
+            const cardProgress = document.getElementById("card-progress");
+            const showAnswerBtn = document.getElementById("show-answer-btn");
+            const feedbackControls = document.getElementById("feedback-controls");
+
+            // --- 2. FUNCȚIILE DE BAZĂ ---
+
+            // Afișează un card nou (starea "întrebare")
+            function showCard(index) {
+                if (cards.length === 0) {
+                    showDoneMessage("Acest pachet nu are carduri.");
+                    return;
+                }
+
+                if (index >= cards.length) {
+                    showDoneMessage("Felicitări! Ai terminat sesiunea de studiu.");
+                    return;
+                }
+
+                const card = cards[index];
+                cardFront.innerText = card.Front;
+                cardBack.innerText = card.Back;
+
+                // Resetează starea vizuală
+                cardFront.style.display = "block";
+                cardBack.style.display = "none";
+                showAnswerBtn.style.display = "inline-block";
+                feedbackControls.style.display = "none";
+
+                cardProgress.innerText = `Card ${index + 1} / ${cards.length}`;
+            }
+
+            // Afișează mesajul de finalizare
+            function showDoneMessage(message) {
+                cardFront.innerText = message;
+                cardBack.style.display = "none";
+                showAnswerBtn.style.display = "none";
+                feedbackControls.style.display = "none";
+                cardProgress.innerText = `Completat: ${cards.length} / ${cards.length}`;
+            }
+
+            // Funcția pentru "Show Answer"
+            function showAnswer() {
+                cardFront.style.display = "none";
+                cardBack.style.display = "block";
+                showAnswerBtn.style.display = "none";
+                feedbackControls.style.display = "inline-block";
+            }
+
+            // Funcția care trimite review-ul la server
+            async function sendReview(quality) {
+                const cardId = cards[currentIndex].Id;
+
+                // Construim URL-ul pentru acțiunea RecordReview
+                const url = `/projects/${projectId}/decks/${deckId}/cards/review`;
+
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "RequestVerificationToken": token // Trimitem token-ul
+                        },
+                        body: JSON.stringify({
+                            cardId: cardId,
+                            quality: parseInt(quality) // Trimitem valoarea numerică a enum-ului
+                        })
+                    });
+
+                    if (response.ok) {
+                        // Dacă a funcționat, trecem la cardul următor
+                        currentIndex++;
+                        showCard(currentIndex);
+                    } else {
+                        alert("A apărut o eroare la salvarea progresului.");
+                    }
+                } catch (error) {
+                    console.error("Fetch error:", error);
+                    alert("Eroare de rețea.");
+                }
+            }
+
+            // --- 3. ATAȘAREA EVENIMENTELOR ---
+            showAnswerBtn.addEventListener("click", showAnswer);
+
+            // Atașăm evenimente pe butoanele de feedback
+            feedbackControls.querySelectorAll("button").forEach(button => {
+                button.addEventListener("click", function() {
+                    const quality = this.getAttribute("data-quality");
+                    sendReview(quality);
+                });
+            });
+
+            // --- 4. INIȚIALIZARE ---
+            showCard(0);
+        });
+    </script>
+}
